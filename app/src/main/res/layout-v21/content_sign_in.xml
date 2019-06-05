@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/sign_in_linear_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/sign_in_petal_top_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vector_top_left_petal" />
+
+        <ImageView
+            android:id="@+id/sign_in_petal_top_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vector_top_right_petal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sign_in_linear_bot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/sign_in_petal_bot_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/vector_bot_left_petal" />
+
+        <ImageView
+            android:id="@+id/sign_in_petal_bot_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vector_bot_right_petal" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/sign_in_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="199dp"
+        android:layout_below="@+id/sign_in_linear_top"
+        android:layout_centerInParent="true"
+        android:src="@drawable/logo_ask_molly" />
+
+
+    <EditText
+        android:id="@+id/sign_in_edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_in_logo"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ic_rectangle"
+        android:paddingStart="10dp"
+        android:textColorHint="@color/colorAskMolly"
+        android:hint="Имя" />
+
+    <EditText
+        android:id="@+id/sign_in_edit_telephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_in_edit_name"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_rectangle"
+        android:paddingStart="10dp"
+        android:textColorHint="@color/colorAskMolly"
+        android:hint="Телефон" />
+
+    <!--<ImageView-->
+        <!--android:id="@+id/sign_in_edit_name_logo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/sign_in_logo"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:src="@drawable/ic_rectangle"-->
+
+        <!--/>-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/sign_in_edit_telephone"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/sign_in_edit_name"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="25dp"-->
+        <!--android:src="@drawable/ic_rectangle" />-->
+
+
+    <Button
+        android:id="@+id/sign_in_btn_sign_in"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_in_edit_telephone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rectangle_btn"
+        android:elevation="10dp"
+        android:paddingStart="18dp"
+        android:paddingTop="13dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="13dp"
+        android:src="@drawable/rectangle_btn"
+        android:text="Войти"
+        android:textColor="@color/colorWhite"
+        android:textSize="15sp"
+        android:textStyle="normal"
+
+        />
+
+    <TextView
+        android:id="@+id/sign_in_tv_or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_in_btn_sign_in"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="или"
+        android:textColor="@color/colorBlack"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:id="@+id/sign_in_linear_social"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_in_tv_or"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/sign_in_iv_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="75dp"
+            android:contentDescription="Регистрация через facebook"
+            android:src="@drawable/facebook" />
+
+        <ImageView
+            android:id="@+id/sign_in_iv_vk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:contentDescription="Регистрация через Вконтакте"
+            android:src="@drawable/vk" />
+    </LinearLayout>
+    <!--гугл картн=инка стоит по еврейски т.к. она имеет лишнее свободное пространство -->
+    <ImageView
+        android:id="@+id/sign_in_iv_google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_in_tv_or"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="25dp"
+        android:layout_toEndOf="@+id/sign_in_linear_social"
+        android:contentDescription="Регистрация через Google"
+        android:src="@drawable/google" />
+
+</RelativeLayout>
