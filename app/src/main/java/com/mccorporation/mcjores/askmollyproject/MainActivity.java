@@ -1,20 +1,18 @@
 package com.mccorporation.mcjores.askmollyproject;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
@@ -27,42 +25,69 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import static android.support.v4.view.PagerAdapter.POSITION_NONE;
+import com.vk.sdk.api.VKRequest;
+import com.vk.sdk.api.VKResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import static android.widget.Toast.LENGTH_SHORT;
+
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private final String NAME = "name";
+    private final String CITY = "city";
+    private final String PHONE = "phone";
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private boolean mtoken = false;
 
     private ImageView tool_hamburger;
 
 
     static {
+
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
+
+    private String mAge;
+    private String mFirstName  ;
+    private String mLastName;
+    private String mCity;
+    private String mPhone;
+
+    private TextView mDrawerName;
+    private View mHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ImageView image = findViewById(R.id.togle_askmolly);
-//        Drawable drawable = VectorDrawableCompat.create(getResources(),R.drawable.ic_logo, null);
-//        image.setImageDrawable(drawable);
-//        Intent intent = new Intent(this,RegistrationActivity.class);
-//        startActivity(intent);
+
+
+        if (!mtoken) {
+            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+            startActivityForResult(intent,1);
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar_main);
 
 //        toolbar.setLogo(R.drawable.ic_ask_molly);
 
 //        toolbar.setNavigationIcon(R.drawable.hamburger);
 //        toolbar.getNavigationIcon();
+
         setSupportActionBar(toolbar);
 
 
@@ -71,11 +96,9 @@ public class MainActivity extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-
-
+        mHeader = navigationView.getHeaderView(0);
         toggle.setDrawerIndicatorEnabled(false);
 //        toggle.setHomeAsUpIndicator(R.drawable.hamburger);
-
 
 
         drawer.addDrawerListener(toggle);
@@ -88,6 +111,7 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         tool_hamburger = findViewById(R.id.tool_hamburger);
+        mDrawerName = mHeader.findViewById(R.id.nav_name);
         tool_hamburger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +128,7 @@ public class MainActivity extends AppCompatActivity
             switch (item.getItemId()) {
                 case R.id.navigation_preferences:
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new RestourantFragment()).commit();
-                    Toast.makeText(MainActivity.this,"Open", LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Open", LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_restaurant:
 
@@ -118,7 +142,54 @@ public class MainActivity extends AppCompatActivity
     };
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+            if (data==null) return;
 
+            if (requestCode ==1){
+                if (resultCode == RESULT_OK){
+                    Toast.makeText(getApplicationContext(),"Добро пожаловать", LENGTH_SHORT).show();
+                    getFullNameVK();
+                    mDrawerName.setText(mFirstName);
+                } else Toast.makeText(getApplicationContext(),"Вход не выполнен", LENGTH_SHORT).show();
+            }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    private void getFullNameVK(){
+        final VKRequest request = new VKRequest("account.getProfileInfo");
+
+        request.executeSyncWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                super.onComplete(response);
+
+                String jsonObj = response.json.toString();
+                parseJSON_VK_profile(jsonObj);
+            }
+        });
+    }
+
+    private void parseJSON_VK_profile(String jsonObj)  {
+        Log.i("MainFragmetn","request = " + jsonObj);
+        try {
+
+            if (jsonObj != null) {
+                JSONObject request = new JSONObject(jsonObj);
+                JSONObject response = request.getJSONObject("response");
+                Log.i("MainFragmetn", String.valueOf(response));
+
+                mFirstName = response.getString("first_name");
+                mLastName = response.getString("last_name");
+                mAge = response.getString("bdate");
+                mPhone = response.getString("phone");
+                JSONObject city = response.getJSONObject("city");
+                mCity = city.getString("title");
+                Log.i("MainFragmetn","name " + mFirstName + " " + mLastName + " age " + mAge + " city " + mCity);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -159,7 +230,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            Intent intent = new Intent(this,ProfileFragment.class);
+            Intent intent = new Intent(this, ProfileFragment.class);
+            intent.putExtra(NAME,mFirstName+ " " + mLastName);
+            intent.putExtra(CITY, mCity);
+            intent.putExtra(PHONE,mPhone);
             startActivity(intent);
         } else if (id == R.id.nav_subscription) {
 

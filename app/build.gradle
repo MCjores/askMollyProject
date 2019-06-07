@@ -28,4 +28,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+
+    implementation 'com.vk:androidsdk:1.6.9'
+
+    implementation 'com.github.asne:asne-facebook:0.3.3'
+    implementation 'com.github.asne:asne-vk:0.3.3'
+    implementation 'com.github.asne:asne-googleplus:0.3.3'
+
 }

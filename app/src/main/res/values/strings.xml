@@ -14,5 +14,6 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
 
+    <integer name="com_vk_sdk_AppId">7010939</integer>
     <string name="missing"><u>Пропустить</u></string>
 </resources>

@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class ProfileFragment extends AppCompatActivity {
 
@@ -16,5 +17,13 @@ public class ProfileFragment extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_fragment);
+
+        TextView name = findViewById(R.id.profile_name);
+        TextView city = findViewById(R.id.profile_town);
+        TextView phone = findViewById(R.id.profile_phone);
+
+        name.setText(getIntent().getStringExtra("name"));
+        city.setText(getIntent().getStringExtra("city"));
+        phone.setText(getIntent().getStringExtra("phone"));
     }
 }
