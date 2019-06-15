@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    android:paddingTop="15dp"
+
+    >
+<!--чекнуть закреп на компе-->
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/dish_photo"
+        android:layout_width="match_parent"
+        android:layout_height="185dp"
+        android:src="@drawable/png_salad"
+        app:riv_corner_radius="20dp"
+
+        />
+    <TextView
+        android:id="@+id/dish_name_cafe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_below="@+id/dish_photo"
+        android:text="GoodDay"
+        android:textSize="25sp"
+        android:textColor="@color/colorBlack"
+        />
+    <ImageView
+        android:id="@+id/logo_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dish_name_cafe"
+        android:src="@drawable/png_clock"
+        />
+    <TextView
+        android:id="@+id/dish_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dish_name_cafe"
+        android:layout_toEndOf="@+id/logo_clock"
+        android:layout_marginTop="5dp"
+        android:text="dsfsdfsdf"
+        android:textColor="@color/colorBlack"
+        />
+
+    <ImageView
+        android:id="@+id/logo_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dish_name_cafe"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/dish_time"
+        android:src="@drawable/png_location" />
+    <TextView
+        android:id="@+id/dish_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dish_name_cafe"
+        android:layout_toEndOf="@+id/logo_location"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="5dp"
+        android:text="dsgsdgsdg"
+        />
+
+    <TextView
+        android:id="@+id/dish_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dish_photo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:text="4.9"
+        android:textSize="16sp"
+        android:textColor="@color/colorBlack"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dish_photo"
+        android:layout_marginTop="5dp"
+        android:layout_toStartOf="@id/dish_rating"
+        android:src="@drawable/png_star" />
+
+</RelativeLayout>

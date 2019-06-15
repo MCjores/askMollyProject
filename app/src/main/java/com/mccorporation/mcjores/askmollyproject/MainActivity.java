@@ -1,9 +1,6 @@
 package com.mccorporation.mcjores.askmollyproject;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +8,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -34,9 +30,6 @@ import com.vk.sdk.api.VKResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import static android.widget.Toast.LENGTH_SHORT;
 
@@ -70,16 +63,19 @@ public class MainActivity extends AppCompatActivity
     private TextView mDrawerName;
     private View mHeader;
 
+    private RestaurantFragment restaurantFragment;
+    private PreferencesFragment preferencesFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        if (!mtoken) {
-            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-            startActivityForResult(intent,1);
-        }
+//        if (!mtoken) {
+//            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+//            startActivityForResult(intent,1);
+//        }
 
         Toolbar toolbar = findViewById(R.id.toolbar_main);
 
@@ -110,6 +106,9 @@ public class MainActivity extends AppCompatActivity
         BottomNavigationView bottomNavigationView = findViewById(R.id.Bottom_nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        restaurantFragment = new RestaurantFragment();
+        preferencesFragment = new PreferencesFragment();
+
         tool_hamburger = findViewById(R.id.tool_hamburger);
         mDrawerName = mHeader.findViewById(R.id.nav_name);
         tool_hamburger.setOnClickListener(new View.OnClickListener() {
@@ -127,11 +126,11 @@ public class MainActivity extends AppCompatActivity
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_preferences:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new RestourantFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container_main, preferencesFragment).commit();
                     Toast.makeText(MainActivity.this, "Open", LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_restaurant:
-
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container_main, restaurantFragment).commit();
                     return true;
 //                case R.id.navigation_notifications:
 //

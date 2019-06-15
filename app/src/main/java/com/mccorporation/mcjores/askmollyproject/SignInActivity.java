@@ -3,6 +3,7 @@ package com.mccorporation.mcjores.askmollyproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -55,5 +56,9 @@ public class SignInActivity extends AppCompatActivity {
         })) {
             super.onActivityResult(requestCode, resultCode, data);
         }
+
+
+
     }
+
 }

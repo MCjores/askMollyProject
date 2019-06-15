@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,30 +16,31 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestourantFragment extends Fragment {
-
+public class RestaurantFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
-
+    private RestaurantsListFragment DishList;
+    private StopProduct StopProduct;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.preferences_fragment,container,false);
+        View view = inflater.inflate(R.layout.restaurant_fragment,container,false);
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-        viewPager = (ViewPager) view.findViewById(R.id.view_pager);
-
+        tabLayout = (TabLayout) view.findViewById(R.id.restaurant_tab_layout);
+        viewPager = (ViewPager) view.findViewById(R.id.restaurant_view_pager);
+        DishList = new RestaurantsListFragment();
+        StopProduct = new StopProduct();
         setUpTabLayout();
 
 
         return view;
     }
 
-
     private void setUpTabLayout() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
-        adapter.add(new TypeEatFragment(), "Тип питания");
-        adapter.add(new StopProduct(), "Стоп продукты");
+        RestaurantFragment.ViewPagerAdapter adapter = new RestaurantFragment.ViewPagerAdapter(getChildFragmentManager());
+        adapter.add(DishList, "Тип питания");
+        adapter.add(StopProduct, "Стоп продукты");
+        Log.i("ViewPager = " ," " + viewPager);
         viewPager.setAdapter(adapter);
         viewPager.setPageMargin((int) getResources().getDimension(R.dimen.view_pager_gap));
         viewPager.setPageMarginDrawable(R.color.colorGreen);

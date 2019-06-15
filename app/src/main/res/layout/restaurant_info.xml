@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    android:paddingTop="15dp"
+    >
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/restaurant_info_photo"
+        android:layout_width="match_parent"
+        android:layout_height="185dp"
+        android:layout_marginTop="45dp"
+        android:src="@drawable/png_salad"
+        app:riv_corner_radius="20dp"
+
+        />
+    <TextView
+        android:id="@+id/restaurant_info_name_cafe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/restaurant_info_photo"
+        android:text="GoodDay"
+        android:textSize="25sp"
+        android:textColor="@color/colorBlack"
+        />
+
+    <TextView
+        android:id="@+id/restaurant_info_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/restaurant_info_photo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:text="4.9"
+        android:textSize="16sp"
+        android:textColor="@color/colorBlack"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/restaurant_info_photo"
+        android:layout_marginTop="15dp"
+        android:layout_toStartOf="@id/restaurant_info_rating"
+        android:src="@drawable/png_star" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/restaurant_info_rating">
+
+        <!--app:titleTextAppearance="@style/Toolbar.TitleT"-->
+        <android.support.design.widget.TabLayout
+            android:id="@+id/restaurant_info_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorWhite"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="#0B421A"
+            app:tabIndicatorHeight="1.6dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#0B421A"
+            app:tabTextColor="#000000" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/restaurant_info_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            android:theme="@style/AppTheme" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/restaurant_info_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"/>
+    </LinearLayout>
+
+</RelativeLayout>
