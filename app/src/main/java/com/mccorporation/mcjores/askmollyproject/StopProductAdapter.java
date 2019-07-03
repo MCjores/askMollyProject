@@ -59,7 +59,7 @@ import java.util.ArrayList;
 ////                checkBox.setText(stopListArray[position]);
 ////
 ////            return view;
-//            Log.i("StopProduct", " checkbox " + checkBox);
+//            Log.i("StopProductFragment", " checkbox " + checkBox);
 //
 //            if (convertView == null) {
 //                convertView = mLayoutInflater.inflate(R.layout.stop_eat_item, null);
@@ -76,7 +76,7 @@ import java.util.ArrayList;
 //            });
 //            checkBox.setText(stopListArray[position]);
 //
-//            Log.i("StopProduct", " checkbox " + checkBox + " view " + convertView);
+//            Log.i("StopProductFragment", " checkbox " + checkBox + " view " + convertView);
 //
 //            return convertView;
 //        }

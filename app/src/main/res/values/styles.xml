@@ -22,8 +22,26 @@
     <style name="AskMolly.ButtonMain">
         <item name="android:background">@drawable/button_main</item>
         <item name="android:textColor" >@color/colorWhite</item>
-        <item name="android:shadowRadius">10dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:shadowRadius">10</item>
+    </style>
 
+    <style name="AskMolly.ButtonProfileExit">
+        <item name="android:background">@drawable/button_profile_exit</item>
+        <item name="android:textColor" >@color/colorBlack</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:shadowRadius">10</item>
+    </style>
+    <style name="AskMolly.TextViewMain">
+        <item name="android:background">@color/colorWhite</item>
+        <item name="android:textColor" >@color/colorBlack</item>
+        <item name="android:textSize">13sp</item>
+
+
+    </style>
+
+    <style name="AskMolly.Toolbar" parent="android:style/Theme.Holo.Light">
+        <item name="android:background">@color/colorWhite</item>
     </style>
 
 

@@ -8,25 +8,15 @@
             android:id="@+id/nav_profile"
             android:title="Профиль" />
 
+        <item
+            android:id="@+id/nav_buylist"
+            android:title="Мои заказы"
+            />
 
         <item
             android:id="@+id/nav_subscription"
-
             android:title="Подписка" />
 
-        <item
-            android:id="@+id/nav_app_info"
-            android:title="О приложении" />
-
-
-        <item
-            android:id="@+id/nav_buylist"
-            android:title="Мои заказы" />
-
-        <item
-            android:id="@+id/nav_exit"
-            android:title="Выход"
-            />
     </group>
 
 

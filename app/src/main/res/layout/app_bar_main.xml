@@ -17,9 +17,10 @@
             android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:elevation="0dp"
             android:background="@color/colorWhite"
-            android:theme="@android:style/Theme.Holo.Light"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:theme="@style/AskMolly.Toolbar">
+
 
             <ImageView
                 android:id="@+id/tool_hamburger"

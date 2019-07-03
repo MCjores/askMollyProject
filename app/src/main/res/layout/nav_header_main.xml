@@ -14,11 +14,12 @@
 
     <ImageView
 
-        android:id="@+id/nav_cat"
+        android:id="@+id/nav_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:layout_marginTop="5dp"
         android:src="@drawable/cat" />
 
     <TextView
@@ -26,9 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="15dp"
-        android:layout_toEndOf="@+id/nav_cat"
-        android:paddingTop="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_toEndOf="@+id/nav_photo"
+        android:paddingTop="27dp"
         android:text="Name"
         android:textColor="@color/colorBlack"
         android:textSize="20sp"
@@ -43,7 +44,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@+id/nav_cat"
+        android:layout_below="@+id/nav_photo"
         android:layout_marginTop="20dp"
         android:background="@color/colorBlack"/>
 </RelativeLayout>

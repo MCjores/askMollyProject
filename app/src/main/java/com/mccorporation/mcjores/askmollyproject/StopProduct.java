@@ -1,170 +1,156 @@
 package com.mccorporation.mcjores.askmollyproject;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.GridView;
-import android.widget.Toast;
+//{"Глютен", "Клуюника", "Черный перец", "Яблоки", "Орехи", "Рыба", "Моллюски", "Арахис", "Сахар", "Лактоза", "Цитрус", "Яйца", "Соя", "Глюкоза"};
+public class StopProduct {
 
-//import androidx.annotation.RecentlyNonNull;
+    private boolean gluten;
+    private boolean strawberry;
+    private boolean blackPaper;
+    private boolean apple;
+    private boolean nut;
+    private boolean fish;
+    private boolean mollusk;
+    private boolean peanut;
+    private boolean sugar;
+    private boolean lactose;
+    private boolean citrus;
+    private boolean egg;
+    private boolean soy;
+    private boolean glucose;
 
-import java.util.ArrayList;
-
-public class StopProduct extends Fragment {
-    private String[] stopListArray = {"Глютен", "Клуюника", "Черный перец", "Яблоки", "Орехи", "Рыба", "Моллюски", "Арахис", "Сахар", "Лактоза", "Цитрус", "Яйца", "Соя", "Глюкоза"};
-    private ArrayList<String> saveList;
-    private SharedPreferences spStopProducts;
-    private Button btnSave;
-    private StopProductAdapter stopProductAdapter;
-    private final String APP_PREFERENCE_STOP_PRODUCT = "StopProduct";
-    private Context context;
-    private SparseBooleanArray mCheckStates;
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.stop_eat, container, false);
-
-
-        GridView gridView = view.findViewById(R.id.stop_eat_grid);
-
-
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(inflater.getContext(),android.R.layout.simple_list_item_1,stopListArray);
-        saveList = new ArrayList<>();
-        LoadPreferences();
-        stopProductAdapter = new StopProductAdapter(inflater.getContext(), R.layout.stop_eat_item, stopListArray);
-        context = inflater.getContext();
-
-        gridView.setAdapter(stopProductAdapter);
-
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.i("StopProduct", " adapter " + adapterView.getItemAtPosition(i));
-            }
-        });
-
-
-        spStopProducts = this.getActivity().getSharedPreferences(APP_PREFERENCE_STOP_PRODUCT, Context.MODE_PRIVATE);
-
-        btnSave = view.findViewById(R.id.stop_eat_btnSave);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //shared pref
-                SavePreferences();
-            }
-        });
-        return view;
+    public StopProduct() {
+        this.gluten = false;
+        this.strawberry = false;
+        this.blackPaper = false;
+        this.apple = false;
+        this.nut = false;
+        this.fish = false;
+        this.mollusk = false;
+        this.peanut = false;
+        this.sugar = false;
+        this.lactose = false;
+        this.citrus = false;
+        this.egg = false;
+        this.soy = false;
+        this.glucose = false;
     }
 
-    private void SavePreferences() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
-                APP_PREFERENCE_STOP_PRODUCT, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("Status_size", saveList.size());
-        for (int i = 0; i < saveList.size(); i++){
-            editor.remove("savelist_" + i);
-            Log.i("save","clearPosition" + i);}
+    //Подумать над реализацией сортировки по стоп продуктам
+    // Как вариант импользовать Map (key - название продукта-строка value - соответствующее булево значение)
+    //Проблема - как будет реализоавн Бэк? как автоматизировать добавлеие продукта в бэк, не исправляя код APP и при этом сохранить сортировку
+//    как вриант чисто по слову(строке) т.к. в базе пудет массив с ограничениями
+//    Проблема - стоп продукт может содержаться в нескольких продуктах - глютен - овес, макароны, ячмень, блинчики, вафли, колбасы
+//    как вариант на каждый стоп продукт создать отдельный класси в нем указывать продукты в которых он содержится
 
-        for (int i = 0; i < saveList.size(); i++){
-            editor.putString("savelist_" + i, saveList.get(i));
-            Log.i("save","savePosition" + i);}
-        editor.apply();
-        Toast.makeText(context,"Сохранено",Toast.LENGTH_SHORT).show();
+    public void setGluten(boolean gluten) {
+        this.gluten = gluten;
     }
 
-
-    private void LoadPreferences() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
-                APP_PREFERENCE_STOP_PRODUCT, Context.MODE_PRIVATE);
-        int size = sharedPreferences.getInt("Status_size", 0);
-        saveList.clear();
-        for (int i = 0; i < size; i++){
-            saveList.add(sharedPreferences.getString("savelist_" + i, null));
-            Log.i("save","LoadPosition" + i);}
+    public void setStrawberry(boolean strawberry) {
+        this.strawberry = strawberry;
     }
-//_____________________________________________________________
 
-    public class StopProductAdapter extends ArrayAdapter {
-        private Context context;
-        private ArrayList<String> stopList;
+    public void setBlackPaper(boolean blackPaper) {
+        this.blackPaper = blackPaper;
+    }
 
-        private int i = 0;
-        private String[] stopListArray = {"Глютен", "Клуюника", "Черный перец", "Яблоки", "Орехи", "Рыба", "Моллюски", "Арахис", "Сахар",
-                "Лактоза", "Цитрус", "Яйца", "Соя", "Глюкоза"};
+    public void setApple(boolean apple) {
+        this.apple = apple;
+    }
 
-        public StopProductAdapter(Context context, int resource, String[] data) {
-            super(context, resource, data);
-            this.context = context;
-            mCheckStates = new SparseBooleanArray();
-        }
+    public void setNut(boolean nut) {
+        this.nut = nut;
+    }
 
+    public void setFish(boolean fish) {
+        this.fish = fish;
+    }
 
-        @Override
-        public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
-//        CheckBox bu = (CheckBox) getItem(position);
+    public void setMollusk(boolean mollusk) {
+        this.mollusk = mollusk;
+    }
 
-            final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public void setPeanut(boolean peanut) {
+        this.peanut = peanut;
+    }
 
-            if (convertView == null)
-                convertView = inflater.inflate(R.layout.stop_eat_item, parent, false);
+    public void setSugar(boolean sugar) {
+        this.sugar = sugar;
+    }
 
-            final CheckBox checkBox = convertView.findViewById(R.id.stop_checkbox);
+    public void setLactose(boolean lactose) {
+        this.lactose = lactose;
+    }
 
-            checkBox.setChecked(saveList.contains(stopListArray[position]));    // если чекбокс был отмечен то мы восстанавливаем состояние
-            checkBox.setText(stopListArray[position]);
-            checkBox.setTag(position);
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    Log.i("StopProduct", "i = " + i + " " + compoundButton.getTag() + "bool = " + b);
-//                 checkBox.setChecked(mCheckStates.get(position,false));
-                    mCheckStates.put((Integer) compoundButton.getTag(), b);
-                    addToSave(position);
-                }
-            });
+    public void setCitrus(boolean citrus) {
+        this.citrus = citrus;
+    }
 
-            return convertView;
-        }
+    public void setEgg(boolean egg) {
+        this.egg = egg;
+    }
 
+    public void setSoy(boolean soy) {
+        this.soy = soy;
+    }
 
+    public void setGlucose(boolean glucose) {
+        this.glucose = glucose;
+    }
 
-        private void addToSave(int position) {
-            if (isChecked(position)){
-                Log.i("save","isChecked = " + true);
-                saveList.add(stopListArray[position]);
-            }
-            else saveList.remove(stopListArray[position]);
+    public boolean isGluten() {
+        return gluten;
+    }
 
-        }
+    public boolean isStrawberry() {
+        return strawberry;
+    }
 
-        public boolean isChecked(int pos) {
-            return mCheckStates.get(pos, false);
-        }
+    public boolean isBlackPaper() {
+        return blackPaper;
+    }
 
-        public void setChecked(int position, boolean isChecked) {
-            mCheckStates.put(position, isChecked);
-        }
+    public boolean isApple() {
+        return apple;
+    }
 
-        public void toogle(int position) {
-            setChecked(position, !isChecked(position));
-        }
+    public boolean isNut() {
+        return nut;
+    }
+
+    public boolean isFish() {
+        return fish;
+    }
+
+    public boolean isMollusk() {
+        return mollusk;
+    }
+
+    public boolean isPeanut() {
+        return peanut;
+    }
+
+    public boolean isSugar() {
+        return sugar;
+    }
+
+    public boolean isLactose() {
+        return lactose;
+    }
+
+    public boolean isCitrus() {
+        return citrus;
+    }
+
+    public boolean isEgg() {
+        return egg;
+    }
+
+    public boolean isSoy() {
+        return soy;
+    }
+
+    public boolean isGlucose() {
+        return glucose;
     }
 }

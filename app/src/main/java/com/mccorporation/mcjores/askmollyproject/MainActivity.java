@@ -1,6 +1,8 @@
 package com.mccorporation.mcjores.askmollyproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,8 +27,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.squareup.picasso.Picasso;
+import com.vk.sdk.api.VKApi;
+import com.vk.sdk.api.VKApiConst;
+import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.model.VKApiUser;
+import com.vk.sdk.api.model.VKApiUserFull;
+import com.vk.sdk.api.model.VKList;
+import com.vk.sdk.api.model.VKUsersArray;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,13 +44,14 @@ import org.json.JSONObject;
 import static android.widget.Toast.LENGTH_SHORT;
 
 
-
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DishPresenter {
 
     private final String NAME = "name";
     private final String CITY = "city";
     private final String PHONE = "phone";
+
+    public static final String APP_PREFERENCE_USER_DATA = "User data";
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -49,28 +60,38 @@ public class MainActivity extends AppCompatActivity
     private ImageView tool_hamburger;
 
 
-    static {
-
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-    }
-
     private String mAge;
-    private String mFirstName  ;
+    private String mFirstName;
     private String mLastName;
     private String mCity;
     private String mPhone;
 
     private TextView mDrawerName;
+    private ImageView mDrawerPhoto;
     private View mHeader;
 
     private RestaurantFragment restaurantFragment;
     private PreferencesFragment preferencesFragment;
+    private DishListFragment dishListFragment;
+    private String mId;
+    private String mPhoto;
 
+    static {
+
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                APP_PREFERENCE_USER_DATA, Context.MODE_PRIVATE);
+
+        if (sharedPreferences.getString("Name", null) == null) {
+            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+            startActivityForResult(intent, 1);
+        }
 
 //        if (!mtoken) {
 //            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
@@ -108,9 +129,24 @@ public class MainActivity extends AppCompatActivity
 
         restaurantFragment = new RestaurantFragment();
         preferencesFragment = new PreferencesFragment();
+        dishListFragment = new DishListFragment();
 
         tool_hamburger = findViewById(R.id.tool_hamburger);
+
         mDrawerName = mHeader.findViewById(R.id.nav_name);
+        mDrawerPhoto = mHeader.findViewById(R.id.nav_photo);
+        if (sharedPreferences.getString("Name",null)!=null) {
+
+            mDrawerName.setText(sharedPreferences.getString("Name", "Name"));
+            Picasso.with(this)
+                    .load(sharedPreferences.getString("UserPhoto", null))
+                    .transform(new CircleTransform())
+                    .placeholder(R.drawable.cat)
+                    .into(mDrawerPhoto);
+
+        }
+
+
         tool_hamburger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,13 +163,16 @@ public class MainActivity extends AppCompatActivity
             switch (item.getItemId()) {
                 case R.id.navigation_preferences:
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_main, preferencesFragment).commit();
-                    Toast.makeText(MainActivity.this, "Open", LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "Open", LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_restaurant:
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_main, restaurantFragment).commit();
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.container_main, new RestaurantMenuFragment()).commit();
                     return true;
+
 //                case R.id.navigation_notifications:
-//
+                case R.id.navigation_dishes:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container_main, dishListFragment).commit();
 //                    return true;
             }
             return false;
@@ -143,21 +182,41 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-            if (data==null) return;
 
-            if (requestCode ==1){
-                if (resultCode == RESULT_OK){
-                    Toast.makeText(getApplicationContext(),"Добро пожаловать", LENGTH_SHORT).show();
-                    getFullNameVK();
+        if (data == null) return;
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(getApplicationContext(), "Добро пожаловать", LENGTH_SHORT).show();
+                getFullNameVK();
+                SharedPreferences sharedPreferences = getSharedPreferences(
+                        APP_PREFERENCE_USER_DATA, Context.MODE_PRIVATE);
+
+
                     mDrawerName.setText(mFirstName);
-                } else Toast.makeText(getApplicationContext(),"Вход не выполнен", LENGTH_SHORT).show();
+                    Picasso.with(this)
+                            .load(mPhoto)
+                            .transform(new CircleTransform())
+                            .placeholder(R.drawable.cat)
+                            .into(mDrawerPhoto);
+
+            } else Toast.makeText(getApplicationContext(), "Вход не выполнен", LENGTH_SHORT).show();
+        }
+        //Если в профиле нажали выход то закрываем приложение
+        if (requestCode == 2) {
+            if (resultCode == RESULT_CANCELED) {
+                finish();
             }
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
-    private void getFullNameVK(){
-        final VKRequest request = new VKRequest("account.getProfileInfo");
 
-        request.executeSyncWithListener(new VKRequest.VKRequestListener() {
+    private void getFullNameVK() {
+        final VKRequest request = new VKRequest("account.getProfileInfo");
+        final VKRequest requestGetPhoto = VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "photo_200", VKApiConst.USER_IDS, mId));
+
+
+        request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
                 super.onComplete(response);
@@ -166,24 +225,73 @@ public class MainActivity extends AppCompatActivity
                 parseJSON_VK_profile(jsonObj);
             }
         });
+
+        requestGetPhoto.executeAfterRequest(request, new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                super.onComplete(response);
+                VKApiUser user = ((VKList<VKApiUser>) response.parsedModel).get(0);
+                mPhoto = user.photo_200;
+//                for (VKApiUserFull userFull : user)
+                Log.i("USer photo url", "URL = " + user.photo_100);
+
+
+                Picasso.with(getApplicationContext())
+                        .load(mPhoto)
+                        .transform(new CircleTransform())
+                        .placeholder(R.drawable.cat)
+                        .into(mDrawerPhoto);
+
+                SharedPreferences sharedPreferences = getSharedPreferences(
+                        APP_PREFERENCE_USER_DATA, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("UserPhoto", mPhoto);
+//                editor.putString("Photo",photoURI);
+                editor.apply();
+            }
+        });
+
+        //схранение в sharedpref
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                APP_PREFERENCE_USER_DATA, Context.MODE_PRIVATE);
+        if (sharedPreferences.getString("Name",null)!=null) {
+
+            mDrawerName.setText(sharedPreferences.getString("Name", "Name"));
+            Picasso.with(this)
+                    .load(sharedPreferences.getString("UserPhoto", null))
+                    .transform(new CircleTransform())
+                    .placeholder(R.drawable.cat)
+                    .into(mDrawerPhoto);
+
+        }
     }
 
-    private void parseJSON_VK_profile(String jsonObj)  {
-        Log.i("MainFragmetn","request = " + jsonObj);
+    private void parseJSON_VK_profile(String jsonObj) {
+        Log.i("MainFragmetn", "request = " + jsonObj);
         try {
 
             if (jsonObj != null) {
                 JSONObject request = new JSONObject(jsonObj);
                 JSONObject response = request.getJSONObject("response");
                 Log.i("MainFragmetn", String.valueOf(response));
-
+//                mId = response.getString("id");
                 mFirstName = response.getString("first_name");
                 mLastName = response.getString("last_name");
                 mAge = response.getString("bdate");
                 mPhone = response.getString("phone");
                 JSONObject city = response.getJSONObject("city");
                 mCity = city.getString("title");
-                Log.i("MainFragmetn","name " + mFirstName + " " + mLastName + " age " + mAge + " city " + mCity);
+                Log.i("MainFragmetn", "name " + mFirstName + " " + mLastName + " age " + mAge + " city " + mCity);
+                mDrawerName.setText(mFirstName);
+
+                SharedPreferences sharedPreferences = getSharedPreferences(
+                        APP_PREFERENCE_USER_DATA, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("FullName", mFirstName + " " + mLastName);
+                editor.putString("Name", mFirstName);
+                editor.putString("Phone", mPhone);
+                editor.apply();
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -230,13 +338,12 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             Intent intent = new Intent(this, ProfileFragment.class);
-            intent.putExtra(NAME,mFirstName+ " " + mLastName);
+            intent.putExtra(NAME, mFirstName + " " + mLastName);
             intent.putExtra(CITY, mCity);
-            intent.putExtra(PHONE,mPhone);
-            startActivity(intent);
+//            intent.putExtra(PHONE, mPhone);
+            startActivityForResult(intent, 2);
         } else if (id == R.id.nav_subscription) {
 
-        } else if (id == R.id.nav_app_info) {
         }
 //        } else if (id == R.id.nav_tools) {
 //
@@ -249,5 +356,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void loadDish(DishMenu menu) {
+//        getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container_main, new DishInfoFragment()).commit();
     }
 }

@@ -38,7 +38,7 @@ public class PreferencesFragment extends Fragment {
     private void setUpTabLayout() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.add(new TypeEatFragment(), "Тип питания");
-        adapter.add(new StopProduct(), "Стоп продукты");
+        adapter.add(new StopProductFragment(), "Стоп продукты");
         viewPager.setAdapter(adapter);
         viewPager.setPageMargin((int) getResources().getDimension(R.dimen.view_pager_gap));
         viewPager.setPageMarginDrawable(R.color.colorGreen);

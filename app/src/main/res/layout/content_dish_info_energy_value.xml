@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="5dp"
+    android:background="@color/colorWhite">
+    <TextView
+        android:id="@+id/tv_dish_info_energy_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        style="@style/AskMolly.TextViewMain"
+        android:text="В 100г готового продукта:"
+
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp">
+        <LinearLayout
+            android:id="@+id/tv_dish_info_composition_tvs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="жиров"
+                style="@style/AskMolly.TextViewMain"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="белков"
+                style="@style/AskMolly.TextViewMain"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="углеводов"
+                style="@style/AskMolly.TextViewMain"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ккал"
+                style="@style/AskMolly.TextViewMain"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Вес"
+                style="@style/AskMolly.TextViewMain"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_dish_info_composition_fat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0,0 г"
+                style="@style/AskMolly.TextViewMain"
+                />
+
+            <TextView
+                android:id="@+id/tv_dish_info_composition_proteins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0,0 г"
+                style="@style/AskMolly.TextViewMain"
+                />
+            <TextView
+                android:id="@+id/tv_dish_info_composition_carbohudrates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0,0 г"
+                style="@style/AskMolly.TextViewMain"
+                />
+            <TextView
+                android:id="@+id/tv_dish_info_composition_ccal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0,0 г"
+                style="@style/AskMolly.TextViewMain"
+                />
+            <TextView
+                android:id="@+id/tv_dish_info_composition_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0,0 г"
+                style="@style/AskMolly.TextViewMain"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

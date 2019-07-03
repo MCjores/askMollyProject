@@ -20,7 +20,7 @@ public class RestaurantFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private RestaurantsListFragment DishList;
-    private StopProduct StopProduct;
+    private StopProductFragment StopProductFragment;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class RestaurantFragment extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.restaurant_tab_layout);
         viewPager = (ViewPager) view.findViewById(R.id.restaurant_view_pager);
         DishList = new RestaurantsListFragment();
-        StopProduct = new StopProduct();
+        StopProductFragment = new StopProductFragment();
         setUpTabLayout();
 
 
@@ -38,9 +38,9 @@ public class RestaurantFragment extends Fragment {
 
     private void setUpTabLayout() {
         RestaurantFragment.ViewPagerAdapter adapter = new RestaurantFragment.ViewPagerAdapter(getChildFragmentManager());
-        adapter.add(DishList, "Тип питания");
-        adapter.add(StopProduct, "Стоп продукты");
-        Log.i("ViewPager = " ," " + viewPager);
+        adapter.add(DishList, "СПИСОК");
+        adapter.add(StopProductFragment, "КАРТА");
+
         viewPager.setAdapter(adapter);
         viewPager.setPageMargin((int) getResources().getDimension(R.dimen.view_pager_gap));
         viewPager.setPageMarginDrawable(R.color.colorGreen);

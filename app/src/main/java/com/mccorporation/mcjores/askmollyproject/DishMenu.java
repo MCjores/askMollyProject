@@ -17,8 +17,9 @@ public class DishMenu {
     private double Price;
 
     private String[] ProductDish;
+    private int DishPhoto;
 
-    public DishMenu(String name, String description, String[] composition, double fat, double proteins, double carbohydrates, double kcal, double weight, double price) {
+    public DishMenu(String name, String description,int dishPhoto, String[] composition, double fat, double proteins, double carbohydrates, double kcal, double weight, double price) {
         Name = name;
         Description = description;
         Composition = composition;
@@ -28,15 +29,10 @@ public class DishMenu {
         Kcal = kcal;
         Weight = weight;
         Price = price;
+        DishPhoto = dishPhoto;
     }
 
-//    public String[] getProductDish() {
-//        return ProductDish;
-//    }
-//
-//    public void setProductDish(String[] productDish) {
-//        ProductDish = productDish;
-//    }
+
 
     public String getName() {
         return Name;
@@ -67,11 +63,20 @@ public class DishMenu {
     }
 
     public double getWeight() {
-        return Weight;
+        return  Weight;
     }
+
+    public int getDishPhoto() {
+        return DishPhoto;
+    }
+
 
     public double getPrice() {
         return Price;
+    }
+
+    public void setDishPhoto(int dishPhoto) {
+        DishPhoto = dishPhoto;
     }
 
     public void setName(String name) {

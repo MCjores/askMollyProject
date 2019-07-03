@@ -50,6 +50,7 @@ public class RestaurantInfo extends Fragment {
 
         restaurantDescription = new RestaurantDescription();
         restaurantMenuFragment = new RestaurantMenuFragment();
+        restaurantMenuFragment.setMenu(dishMenus);
         setUpTabLayout();
 
 
