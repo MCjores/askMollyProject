@@ -43,8 +43,18 @@ dependencies {
     implementation 'com.vk:androidsdk:1.6.9'
 
     implementation'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.synnapps:carouselview:0.1.5'
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+    implementation  'jp.wasabeef:picasso-transformations:2.2.1'
+    // If you want to use the GPU Filters
+    implementation  'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+
+    implementation 'com.google.firebase:firebase-core:17.0.0'
+
 //    implementation 'com.github.asne:asne-facebook:0.3.3'
 //    implementation 'com.github.asne:asne-vk:0.3.3'
 //    implementation 'com.github.asne:asne-googleplus:0.3.3'
 
 }
+apply plugin: 'com.google.gms.google-services'

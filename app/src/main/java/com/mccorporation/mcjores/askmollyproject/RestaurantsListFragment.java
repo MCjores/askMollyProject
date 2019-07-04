@@ -5,7 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,20 +19,36 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageClickListener;
+import com.synnapps.carouselview.ImageListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import static com.mccorporation.mcjores.askmollyproject.StopProductFragment.APP_PREFERENCE_STOP_PRODUCT;
 
 public class RestaurantsListFragment extends Fragment {
     private Context mContext;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
     ArrayList<Restaurants> restaurantsArrayList;
     ArrayList<DishMenu> menu1;
     ArrayList<DishMenu> menu2;
     ArrayList<DishMenu> menu3;
     RestaurantInfo restaurantInfo;
+    private CarouselView carouselView;
+    private int[] PhotoDishForCarusel;
+
+    private final int CAROUSEL_PAGE_COUNT =3;
+    private CarouselFragment carouselDish1;
+    private CarouselFragment carouselDish2;
+    private CarouselFragment carouselDish3;
 
     @Nullable
     @Override
@@ -36,8 +56,17 @@ public class RestaurantsListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.list_fragment, container, false);
         ListView listView = view.findViewById(R.id.dish_list);
+//        carouselView = view.findViewById(R.id.carouselView);
+
+        tabLayout = (TabLayout) view.findViewById(R.id.carousel_tab_layout);
+        viewPager = (ViewPager) view.findViewById(R.id.carousel_view_pager);
+
         restaurantInfo = new RestaurantInfo();
-//        setMenus();
+        carouselDish1 = new CarouselFragment();
+        carouselDish2 = new CarouselFragment();
+        carouselDish3 = new CarouselFragment();
+//        carouselView.setPageCount(CAROUSEL_PAGE_COUNT);
+
         final RestaurantsListAdapter restaurantsListAdapter = new RestaurantsListAdapter(inflater.getContext(), setDish());
         listView.setAdapter(restaurantsListAdapter);
 
@@ -50,11 +79,96 @@ public class RestaurantsListFragment extends Fragment {
                 Log.i("RestList", "onCreateView after");
 
                 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container_main, restaurantInfo).commit();
+
             }
         });
 
 
+        //установка картинок в карусель блюд
+        setPhotoDishForCarusel();
+        setUpTabLayout();
+//        carouselView.setImageListener(new ImageListener() {
+//            @Override
+//            public void setImageForPosition(int position, ImageView imageView) {
+//                imageView.setImageResource(PhotoDishForCarusel[position]);
+//            }
+//        });
+//        carouselView.setBackgroundResource(R.drawable.carousel_shape);
+//        carouselView.setImageClickListener(new ImageClickListener() {
+//            @Override
+//            public void onClick(int position) {
+//                Toast.makeText(getContext(),"clic item "+ position,Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
         return view;
+    }
+        //PAGER VIEW FOR CAROUSEL DISH. use 3 fragments for dish photo. будет проще обработать клики.
+    private void setUpTabLayout() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter (getChildFragmentManager());
+        adapter.add(carouselDish1);
+        adapter.add(carouselDish2);
+        adapter.add(carouselDish3);
+        Log.i("ViewPager = " ," " + viewPager);
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(3);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private class ViewPagerAdapter extends FragmentPagerAdapter {
+
+        private List<Fragment> fragmentList = new ArrayList<>();
+
+
+        private ViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        void add(Fragment fragment) {
+            fragmentList.add(fragment);
+
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentList.get(position);
+        }
+
+
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+    }
+
+    private void setPhotoDishForCarusel(){
+        final Random random = new Random();
+        int size = setDish().size() -1;
+
+        int rand1 = random.nextInt(size);
+        int rand2 = random.nextInt(size);
+        int rand3 = random.nextInt(size);
+
+        int sizeMenu1 = setDish().get(rand1).getMenus().size()-1;
+        int sizeMenu2 = setDish().get(rand2).getMenus().size()-1;
+        int sizeMenu3 = setDish().get(rand3).getMenus().size()-1;
+//        setDish().get(rand1).getMenus().get(  );
+        Log.i("Random  ","rand = " + rand1 + " " + rand2 + " " + rand3);
+        Log.i("Random  ","sizeMenu = " + sizeMenu1 + " " + sizeMenu2 + " " + sizeMenu3);
+
+        DishMenu dishMenu1 = setDish().get(rand1).getMenus().get(0);
+        DishMenu dishMenu2 = setDish().get(rand2).getMenus().get(0);
+        DishMenu dishMenu3 = setDish().get(rand3).getMenus().get(0);
+
+        carouselDish1.setDishInfo(dishMenu1);
+        carouselDish2.setDishInfo(dishMenu2);
+        carouselDish3.setDishInfo(dishMenu3);
     }
 
     //ЗАГЛУШКА ДЛЯ БЭКА(создание ресторанов)
@@ -62,7 +176,7 @@ public class RestaurantsListFragment extends Fragment {
         setMenus();
         restaurantsArrayList = new ArrayList<>();
 
-        restaurantsArrayList.add(new Restaurants("Zктория", "Лубянка", 5.0, R.drawable.png_mohito,
+        restaurantsArrayList.add(new Restaurants("Якитория", "Лубянка", 5.0, R.drawable.png_mohito,
                 "Уютная атмосфера, разнообразие японской кужни", 1700, menu2));
         restaurantsArrayList.add(new Restaurants("Good Day Cafe", "Лубянка", 4.1, R.drawable.png_salad,
                 "Уютная атмосфера, разнообразие кухни и мноооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооооогого другого", 1500, menu1));

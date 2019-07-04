@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class DishListFragment extends RestaurantsListFragment {
 
     private RestaurantInfo restaurantInfo;
+    private ArrayList<MenuInfo> menuInfos ;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,11 +38,9 @@ public class DishListFragment extends RestaurantsListFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Restaurants cafe = restaurantsArrayList.get(position);
-                restaurantInfo.setRestaurantInfo(cafe.getNameCafe(), cafe.getPhotoRest(),
-                        cafe.getRestaurantDescription(),cafe.getAddress(),cafe.getAverageCheck(), cafe.getMenus());
+
                 //cvjnhtnm c.lf thiiss
-                dishInfoFragment.setMenu(cafe.getMenus().get(position));
+                dishInfoFragment.setMenu(menuInfos.get(position).getMenu());
 
                 getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.container_main,dishInfoFragment).commit();
             }
@@ -89,12 +88,24 @@ public class DishListFragment extends RestaurantsListFragment {
         private String dishName;
         private String dishOpeningHour;
         private String dishLocation;
+        private DishMenu menu;
 
         public MenuInfo(int dishPhoto, String dishName, String dishOpeningHour, String dishLocation) {
             this.dishPhoto = dishPhoto;
             this.dishName = dishName;
             this.dishOpeningHour = dishOpeningHour;
             this.dishLocation = dishLocation;
+        }
+
+        public MenuInfo(String dishOpeningHour, String dishLocation,DishMenu menu){
+            this.dishPhoto = menu.getDishPhoto();
+            this.dishName = menu.getName();
+            this.dishOpeningHour = dishOpeningHour;
+            this.dishLocation = dishLocation;
+            this.menu = menu;
+        }
+        public DishMenu getMenu(){
+            return menu;
         }
 
         public int getDishPhoto() {
@@ -118,11 +129,11 @@ public class DishListFragment extends RestaurantsListFragment {
     //достаем меню из ресторанов
     private ArrayList<MenuInfo> getMenuIntoRest(ArrayList<Restaurants> restaurants){
 //        ArrayList<DishMenu> menus = new ArrayList<>();
-        ArrayList<MenuInfo> menuInfos = new ArrayList<>();
+        menuInfos = new ArrayList<>();
 
         for (Restaurants dishMenu: restaurants) {
             for (DishMenu menu : dishMenu.getMenus()) {
-                menuInfos.add(new MenuInfo(menu.getDishPhoto(),menu.getName(),dishMenu.getTimeHours(),dishMenu.getAddress()));
+                menuInfos.add(new MenuInfo(dishMenu.getTimeHours(),dishMenu.getAddress(),menu));
 //                menus.addAll(dishMenu.getMenus());
             }
         }
