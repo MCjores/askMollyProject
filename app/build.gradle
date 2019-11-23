@@ -50,11 +50,27 @@ dependencies {
     // If you want to use the GPU Filters
     implementation  'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 
-    implementation 'com.google.firebase:firebase-core:17.0.0'
-
+//    гугл карты ) 1 строчка закоменчена вместо нее 4 ниже т.к. срач с andoidx
+//    implementation 'com.google.firebase:firebase-core:17.0.0'
+//    implementation 'com.github.mancj:MaterialSearchBar:0.8.2'
+    implementation 'com.google.android.libraries.places:places:1.1.0'
+    implementation 'com.google.maps:google-maps-services:0.2.4'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'org.slf4j:slf4j-nop:1.7.25'
 //    implementation 'com.github.asne:asne-facebook:0.3.3'
 //    implementation 'com.github.asne:asne-vk:0.3.3'
 //    implementation 'com.github.asne:asne-googleplus:0.3.3'
 
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '25.3.0'
+            }
+        }
+    }
 }
 apply plugin: 'com.google.gms.google-services'

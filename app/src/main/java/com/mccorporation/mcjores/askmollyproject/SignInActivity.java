@@ -28,7 +28,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_sign_in);
 
-        imageVK = findViewById(R.id.sign_in_iv_vk);
+        imageVK = (ImageView) findViewById(R.id.sign_in_iv_vk);
         imageVK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

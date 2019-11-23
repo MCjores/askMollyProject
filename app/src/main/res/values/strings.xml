@@ -16,4 +16,6 @@
 
     <integer name="com_vk_sdk_AppId">7010939</integer>
     <string name="missing"><u>Пропустить</u></string>
+    <string name="GoogleAPIkey">AIzaSyDy9fUZvRKuz-Xv6zCq_56mhMUu6Uk_mMc</string>
+
 </resources>

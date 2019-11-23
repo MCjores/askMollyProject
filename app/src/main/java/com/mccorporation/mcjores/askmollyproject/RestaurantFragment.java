@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +20,7 @@ public class RestaurantFragment extends Fragment {
     private ViewPager viewPager;
     private RestaurantsListFragment DishList;
     private StopProductFragment StopProductFragment;
+    private GoogleMapFragment googleMapFragment;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class RestaurantFragment extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.restaurant_view_pager);
         DishList = new RestaurantsListFragment();
         StopProductFragment = new StopProductFragment();
+        googleMapFragment = new GoogleMapFragment();
         setUpTabLayout();
 
 
@@ -39,8 +40,8 @@ public class RestaurantFragment extends Fragment {
     private void setUpTabLayout() {
         RestaurantFragment.ViewPagerAdapter adapter = new RestaurantFragment.ViewPagerAdapter(getChildFragmentManager());
         adapter.add(DishList, "СПИСОК");
-        adapter.add(StopProductFragment, "КАРТА");
-
+        adapter.add( StopProductFragment, "КАРТА");
+//
         viewPager.setAdapter(adapter);
         viewPager.setPageMargin((int) getResources().getDimension(R.dimen.view_pager_gap));
         viewPager.setPageMarginDrawable(R.color.colorGreen);
@@ -57,6 +58,10 @@ public class RestaurantFragment extends Fragment {
             super(fm);
         }
 
+//        void add(GoogleMapFragment fragment, String title) {
+//            fragmentList.add(fragment);
+//            titleList.add(title);
+//        }
         void add(Fragment fragment, String title) {
             fragmentList.add(fragment);
             titleList.add(title);

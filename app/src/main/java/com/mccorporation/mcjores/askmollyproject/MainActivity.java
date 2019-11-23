@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity
 //            startActivityForResult(intent,1);
 //        }
 
-        Toolbar toolbar = findViewById(R.id.toolbar_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
 
 //        toolbar.setLogo(R.drawable.ic_ask_molly);
 
@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
@@ -124,17 +124,22 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.Bottom_nav_view);
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.Bottom_nav_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         restaurantFragment = new RestaurantFragment();
         preferencesFragment = new PreferencesFragment();
         dishListFragment = new DishListFragment();
 
-        tool_hamburger = findViewById(R.id.tool_hamburger);
+        tool_hamburger = (ImageView) findViewById(R.id.tool_hamburger);
 
         mDrawerName = mHeader.findViewById(R.id.nav_name);
         mDrawerPhoto = mHeader.findViewById(R.id.nav_photo);
+
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_main, preferencesFragment).commit();
+
+
         if (sharedPreferences.getString("Name",null)!=null) {
 
             mDrawerName.setText(sharedPreferences.getString("Name", "Name"));
@@ -150,7 +155,7 @@ public class MainActivity extends AppCompatActivity
         tool_hamburger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drawer.openDrawer(Gravity.START);
+                drawer.openDrawer(GravityCompat.START);
             }
         });
     }
@@ -173,7 +178,7 @@ public class MainActivity extends AppCompatActivity
 //                case R.id.navigation_notifications:
                 case R.id.navigation_dishes:
                     getSupportFragmentManager().beginTransaction().replace(R.id.container_main, dishListFragment).commit();
-//                    return true;
+                    return true;
             }
             return false;
         }
@@ -300,7 +305,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -353,7 +358,7 @@ public class MainActivity extends AppCompatActivity
 //
 //        }
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

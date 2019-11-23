@@ -34,10 +34,10 @@ public class ProfileFragment extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(
                 APP_PREFERENCE_USER_DATA, Context.MODE_PRIVATE);
-        TextView name = findViewById(R.id.profile_name);
-        TextView phone = findViewById(R.id.profile_phone);
-        ImageView photo = findViewById(R.id.profile_photo);
-        final Button exit = findViewById(R.id.btn_profile_exit);
+        TextView name = (TextView) findViewById(R.id.profile_name);
+        TextView phone = (TextView) findViewById(R.id.profile_phone);
+        ImageView photo = (ImageView) findViewById(R.id.profile_photo);
+        final Button exit = (Button) findViewById(R.id.btn_profile_exit);
 //        Log.i("profileframent",sharedPreferences.getString("Name",null));
         if (sharedPreferences.getString("Name",null)!=null){
             name.setText(sharedPreferences.getString("FullName",""));

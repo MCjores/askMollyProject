@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "364873762030",
+    "firebase_url": "https://askmollyproject-c0412.firebaseio.com",
+    "project_id": "askmollyproject-c0412",
+    "storage_bucket": "askmollyproject-c0412.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364873762030:android:88be32485e256a71",
+        "android_client_info": {
+          "package_name": "com.mccorporation.mcjores.askmollyproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "364873762030-0220e60j78k6bv7tf9rh3617cb30pivq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBodDmF-O2H04pvYqyO49g_i-PLVifPoHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "364873762030-0220e60j78k6bv7tf9rh3617cb30pivq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

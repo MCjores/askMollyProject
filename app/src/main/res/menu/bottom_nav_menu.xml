@@ -5,7 +5,7 @@
         <item
             android:id="@+id/navigation_preferences"
             android:icon="@drawable/salad"
-            app:showAsAction="always"
+            app:showAsAction="ifRoom"
             android:title="Предпочтения" />
 
         <item
@@ -17,7 +17,7 @@
         <item
             android:id="@+id/navigation_dishes"
             android:icon="@drawable/tray"
-            app:showAsAction="always"
+            app:showAsAction="ifRoom"
             android:title="Блюда" />
 
     <item
