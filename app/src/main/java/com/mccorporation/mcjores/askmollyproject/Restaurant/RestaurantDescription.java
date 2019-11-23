@@ -1,4 +1,4 @@
-package com.mccorporation.mcjores.askmollyproject;
+package com.mccorporation.mcjores.askmollyproject.Restaurant;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.mccorporation.mcjores.askmollyproject.R;
 
 public class RestaurantDescription extends Fragment {
 

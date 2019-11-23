@@ -1,4 +1,4 @@
-package com.mccorporation.mcjores.askmollyproject;
+package com.mccorporation.mcjores.askmollyproject.StopProduct;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

@@ -1,4 +1,4 @@
-package com.mccorporation.mcjores.askmollyproject;
+package com.mccorporation.mcjores.askmollyproject.Dish;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,11 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.mccorporation.mcjores.askmollyproject.R;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

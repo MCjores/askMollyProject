@@ -1,4 +1,4 @@
-package com.mccorporation.mcjores.askmollyproject;
+package com.mccorporation.mcjores.askmollyproject.SignIn;
 
 import android.content.Intent;
 

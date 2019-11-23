@@ -1,4 +1,4 @@
-package com.mccorporation.mcjores.askmollyproject;
+package com.mccorporation.mcjores.askmollyproject.StopProduct;
 
 //{"Глютен", "Клуюника", "Черный перец", "Яблоки", "Орехи", "Рыба", "Моллюски", "Арахис", "Сахар", "Лактоза", "Цитрус", "Яйца", "Соя", "Глюкоза"};
 public class StopProduct {

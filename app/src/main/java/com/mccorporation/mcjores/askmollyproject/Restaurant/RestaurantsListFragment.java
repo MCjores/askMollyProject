@@ -1,4 +1,4 @@
-package com.mccorporation.mcjores.askmollyproject;
+package com.mccorporation.mcjores.askmollyproject.Restaurant;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,19 +19,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.mccorporation.mcjores.askmollyproject.CarouselFragment;
+import com.mccorporation.mcjores.askmollyproject.Dish.DishMenu;
+import com.mccorporation.mcjores.askmollyproject.R;
 import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageClickListener;
-import com.synnapps.carouselview.ImageListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static com.mccorporation.mcjores.askmollyproject.StopProductFragment.APP_PREFERENCE_STOP_PRODUCT;
+import static com.mccorporation.mcjores.askmollyproject.StopProduct.StopProductFragment.APP_PREFERENCE_STOP_PRODUCT;
 
 public class RestaurantsListFragment extends Fragment {
     private Context mContext;

@@ -1,14 +1,14 @@
-package com.mccorporation.mcjores.askmollyproject;
+package com.mccorporation.mcjores.askmollyproject.SignIn;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.mccorporation.mcjores.askmollyproject.MainActivity;
+import com.mccorporation.mcjores.askmollyproject.R;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
@@ -45,7 +45,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onResult(VKAccessToken res) {
 // Пользователь успешно авторизовался
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 setResult(RESULT_OK,intent);
                 finish();
             }

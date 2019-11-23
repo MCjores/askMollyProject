@@ -1,4 +1,4 @@
-package com.mccorporation.mcjores.askmollyproject;
+package com.mccorporation.mcjores.askmollyproject.StopProduct;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 //import androidx.annotation.RecentlyNonNull;
 
+import com.mccorporation.mcjores.askmollyproject.R;
+
 import java.util.ArrayList;
 
 public class StopProductFragment extends Fragment {
@@ -31,7 +33,7 @@ public class StopProductFragment extends Fragment {
     private SharedPreferences spStopProducts;
     private Button btnSave;
     private StopProductAdapter stopProductAdapter;
-    protected final static String APP_PREFERENCE_STOP_PRODUCT = "StopProductFragment";
+    public final static String APP_PREFERENCE_STOP_PRODUCT = "StopProductFragment";
     private Context context;
     private SparseBooleanArray mCheckStates;
 

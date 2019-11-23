@@ -1,4 +1,4 @@
-package com.mccorporation.mcjores.askmollyproject;
+package com.mccorporation.mcjores.askmollyproject.Restaurant;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mccorporation.mcjores.askmollyproject.GoogleMapFragment;
+import com.mccorporation.mcjores.askmollyproject.R;
+import com.mccorporation.mcjores.askmollyproject.StopProduct.StopProductFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +23,7 @@ public class RestaurantFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private RestaurantsListFragment DishList;
-    private StopProductFragment StopProductFragment;
+    private com.mccorporation.mcjores.askmollyproject.StopProduct.StopProductFragment StopProductFragment;
     private GoogleMapFragment googleMapFragment;
     @Nullable
     @Override

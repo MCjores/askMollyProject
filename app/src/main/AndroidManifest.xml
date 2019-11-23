@@ -14,7 +14,7 @@
     <application
 
         android:allowBackup="true"
-        android:name=".Application"
+        android:name=".SignIn.Application"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -31,13 +31,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".RegistrationActivity"
+        <activity android:name=".SignIn.RegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".ProfileFragment"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".SignInActivity"
+        <activity android:name=".SignIn.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
 

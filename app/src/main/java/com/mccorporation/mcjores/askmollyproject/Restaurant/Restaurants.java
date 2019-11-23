@@ -1,4 +1,6 @@
-package com.mccorporation.mcjores.askmollyproject;
+package com.mccorporation.mcjores.askmollyproject.Restaurant;
+
+import com.mccorporation.mcjores.askmollyproject.Dish.DishMenu;
 
 import java.util.ArrayList;
 

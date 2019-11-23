@@ -11,7 +11,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,6 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.mccorporation.mcjores.askmollyproject.Dish.DishListFragment;
+import com.mccorporation.mcjores.askmollyproject.Dish.DishMenu;
+import com.mccorporation.mcjores.askmollyproject.Dish.DishPresenter;
+import com.mccorporation.mcjores.askmollyproject.Restaurant.RestaurantFragment;
+import com.mccorporation.mcjores.askmollyproject.SignIn.SignInActivity;
 import com.squareup.picasso.Picasso;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
@@ -34,9 +38,7 @@ import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiUser;
-import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
-import com.vk.sdk.api.model.VKUsersArray;
 
 import org.json.JSONException;
 import org.json.JSONObject;
